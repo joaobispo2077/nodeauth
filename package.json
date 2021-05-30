@@ -1,0 +1,15 @@
+{
+  "name": "authTdd",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/joaobispo2077/auth-tdd.git",
+  "author": "João Bispo <joaobispo2077@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/express": "^4.17.12",
+    "typescript": "^4.3.2"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
