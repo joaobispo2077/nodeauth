@@ -6,6 +6,10 @@
   "author": "João Bispo <joaobispo2077@gmail.com>",
   "license": "MIT",
   "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "style:check": "prettier --check src/**/*.ts",
+    "style:fix": "prettier --write src/**/*.ts",
     "typeorm": "ts-node-dev node_modules/typeorm/cli.js"
   },
   "dependencies": {
