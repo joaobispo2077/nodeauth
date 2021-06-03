@@ -7,8 +7,8 @@ import routes from './routes';
 
 import 'reflect-metadata';
 
-import createConnection from './database';
-createConnection();
+import connection from './database/connection';
+connection.create();
 class AppController {
   public app = express();
 
