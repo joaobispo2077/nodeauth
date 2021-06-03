@@ -6,7 +6,7 @@
   "password": "docker",
   "database": "nodeauth",
   "migrations": ["./src/database/migrations/*.ts"],
-  "entities": ["./src/entitites/*.ts"],
+  "entities": ["./src/entities/*.ts"],
   "logging": true,
   "cli": {
     "migrationsDir": "./src/database/migrations"
