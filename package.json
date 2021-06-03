@@ -6,6 +6,7 @@
   "author": "João Bispo <joaobispo2077@gmail.com>",
   "license": "MIT",
   "scripts": {
+    "dev": "ts-node-dev --transpile-only --ignore-watch node_modules src/server.ts",
     "prepare": "husky install",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
