@@ -1,13 +1,14 @@
 import * as dotenv from 'dotenv';
 dotenv.config({ path: process.env.NODE_ENV === 'test' ? '.env.test' : '.env' });
-
 console.log('Enviroment...', process.env.NODE_ENV);
 
 import express from 'express';
 import routes from './routes';
 
 import 'reflect-metadata';
-import './database';
+
+import createConnection from './database';
+createConnection();
 class AppController {
   public app = express();
 
