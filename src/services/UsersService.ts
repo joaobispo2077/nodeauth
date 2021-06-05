@@ -31,7 +31,6 @@ class UsersService {
     const user = await this.usersRepository.findOne({
       where: { email: email },
     });
-    console.info('user', user);
 
     return user;
   }

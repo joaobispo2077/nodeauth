@@ -11,7 +11,7 @@ const createMockUser = async () => {
   };
 
   const response = await request(app).post('/users').send(userToCreate);
-  return response.body;
+  return { raw: userToCreate, fill: response.body };
 };
 
 describe('Authentication', () => {
@@ -29,25 +29,18 @@ describe('Authentication', () => {
   });
 
   it('should receive JWT token when authenticated with valid credentials', async () => {
-    const user = {
-      email: 'test@gmail.com',
-      password: '123456',
-    };
+    const userMock = await createMockUser();
+    const response = await request(app).post('/auth').send(userMock.raw);
 
-    const response = await request(app).post('/auth').send(user);
-
-    expect(response.status).toBe(200);
-    expect(1).toBe(1);
+    expect(response.headers).toHaveProperty('token');
   });
 
   it('should not authenticate with invalid credentials', async () => {
     const userMock = await createMockUser();
 
-    const userMockWithInvalidPassword = Object.assign({}, userMock, {
+    const userMockWithInvalidPassword = Object.assign({}, userMock.fill, {
       password: '00000000000000000',
     });
-
-    console.log(userMockWithInvalidPassword);
 
     const response = await request(app)
       .post('/auth')
