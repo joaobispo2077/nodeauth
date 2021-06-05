@@ -2,8 +2,9 @@ import request from 'supertest';
 import app from '../../src/app';
 
 import connection from '../../src/database/connection';
+import { IUser } from '../../src/interfaces/User';
 
-const createMockUser = async () => {
+const createMockUser = async (user?: Partial<IUser>) => {
   const userToCreate = {
     email: 'test@gmail.com',
     name: 'Testing',
@@ -11,7 +12,10 @@ const createMockUser = async () => {
   };
 
   const response = await request(app).post('/users').send(userToCreate);
-  return { raw: userToCreate, fill: response.body };
+
+  const outputUser = Object.assign({}, userToCreate, user);
+
+  return { raw: outputUser, fill: response.body };
 };
 
 describe('Authentication', () => {
@@ -36,15 +40,13 @@ describe('Authentication', () => {
   });
 
   it('should not authenticate with invalid credentials', async () => {
-    const userMock = await createMockUser();
-
-    const userMockWithInvalidPassword = Object.assign({}, userMock.fill, {
+    const userMockWithInvalidPassword = await createMockUser({
       password: '00000000000000000',
     });
 
     const response = await request(app)
       .post('/auth')
-      .send(userMockWithInvalidPassword);
+      .send(userMockWithInvalidPassword.raw);
 
     expect(response.status).toBe(401);
     expect(1).toBe(1);
