@@ -11,6 +11,7 @@
     "test:clearCache": "cross-env NODE_ENV=test jest --clearCache",
     "test:silent": "cross-env NODE_ENV=test jest --watchAll --silent --noStackTrace",
     "test:staged": "cross-env NODE_ENV=test jest --findRelatedTests",
+    "test:coverage": "jest --coverage --silent --noStackTrace",
     "prepare": "husky install",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
