@@ -75,9 +75,23 @@ describe('Authentication', () => {
       .post('/auth')
       .send(userMock.raw);
 
+    const response = await request(app).get('/dashboard');
+
+    expect(response.status).toBe(401);
+  });
+
+  it('should not be able to access private routes with invalid jwt token', async () => {
+    const userMock = await createMockUser();
+
+    const responseWithToken = await request(app)
+      .post('/auth')
+      .send(userMock.raw);
+
     const bearerToken = responseWithToken.headers['access-token'];
 
-    const response = await request(app).get('/dashboard');
+    const response = await request(app)
+      .get('/dashboard')
+      .set('Authorization', `Bearer ${faker.datatype.uuid()}`);
 
     expect(response.status).toBe(401);
   });
