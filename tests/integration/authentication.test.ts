@@ -1,14 +1,15 @@
 import request from 'supertest';
-import app from '../../src/app';
+import faker from 'faker';
 
+import app from '../../src/app';
 import connection from '../../src/database/connection';
 import { IUser } from '../../src/interfaces/User';
 
 const createMockUser = async (user?: Partial<IUser>) => {
   const userToCreate = {
-    email: 'test@gmail.com',
-    name: 'Testing',
-    password: '123456',
+    email: faker.internet.email(),
+    name: faker.name.findName(),
+    password: faker.internet.password(),
   };
 
   const response = await request(app).post('/users').send(userToCreate);
