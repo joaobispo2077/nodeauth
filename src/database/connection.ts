@@ -11,6 +11,10 @@ const connection = {
     return createConnection(defaultOptions);
   },
 
+  async get(): Promise<Connection> {
+    return getConnection();
+  },
+
   async runAllMigrations() {
     const connection = getConnection();
     await connection.runMigrations();
@@ -42,4 +46,5 @@ const connection = {
     }
   },
 };
+
 export default connection;

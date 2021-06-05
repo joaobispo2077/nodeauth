@@ -1,18 +1,21 @@
 import { Request, Response } from 'express';
-import { getCustomRepository } from 'typeorm';
-import UsersRepository from '../repositories/UsersRepositories';
+import UsersService from '../services/UsersService';
 
 class UsersController {
   async create(req: Request, res: Response) {
-    const usersRepository = getCustomRepository(UsersRepository);
-    const user = await usersRepository.create({
-      name: 'João',
-      email: 'joaobispo2077@gmail.com',
-      password_hash: 'asdkjlfsd5sad4gfsad5g4ad65g4ad',
-    });
+    const { email, name, password } = req.body;
 
-    await usersRepository.save(user);
-    return res.status(200).json(user);
+    const user = {
+      email,
+      name,
+      password,
+    };
+
+    const usersService = new UsersService();
+
+    const userCreated = await usersService.create(user);
+
+    return res.status(200).json(userCreated);
   }
 }
 

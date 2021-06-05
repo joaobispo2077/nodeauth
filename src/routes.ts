@@ -5,6 +5,6 @@ import usersController from './controllers/UsersController';
 const routes = Router();
 
 routes.post('/auth', sessionController.store);
-routes.get('/users', usersController.create);
+routes.post('/users', usersController.create);
 
 export default routes;
