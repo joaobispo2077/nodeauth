@@ -37,7 +37,7 @@ describe('Authentication', () => {
     const userMock = await createMockUser();
     const response = await request(app).post('/auth').send(userMock.raw);
 
-    expect(response.headers).toHaveProperty('token');
+    expect(response.headers).toHaveProperty('access-token');
   });
 
   it('should not authenticate with invalid credentials', async () => {
@@ -50,6 +50,35 @@ describe('Authentication', () => {
       .send(userMockWithInvalidPassword.raw);
 
     expect(response.status).toBe(401);
-    expect(1).toBe(1);
+  });
+
+  it('should be able to access private routes when authenticated', async () => {
+    const userMock = await createMockUser();
+
+    const responseWithToken = await request(app)
+      .post('/auth')
+      .send(userMock.raw);
+
+    const bearerToken = responseWithToken.headers['access-token'];
+
+    const response = await request(app)
+      .get('/dashboard')
+      .set('Authorization', `Bearer ${bearerToken}`);
+
+    expect(response.status).toBe(200);
+  });
+
+  it('should not be able to access private routes without jwt token', async () => {
+    const userMock = await createMockUser();
+
+    const responseWithToken = await request(app)
+      .post('/auth')
+      .send(userMock.raw);
+
+    const bearerToken = responseWithToken.headers['access-token'];
+
+    const response = await request(app).get('/dashboard');
+
+    expect(response.status).toBe(401);
   });
 });

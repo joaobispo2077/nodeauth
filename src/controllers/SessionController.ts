@@ -20,7 +20,7 @@ class SessionController {
 
     const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET as string);
 
-    res.setHeader('token', token);
+    res.setHeader('access-token', token);
     return res.status(200).send();
   }
 }
