@@ -6,6 +6,8 @@ import connection from '../../src/database/connection';
 import { IUser } from '../../src/interfaces/User';
 
 const createMockUser = async (user?: Partial<IUser>) => {
+  faker.locale = 'pt_BR';
+
   const userToCreate = {
     email: faker.internet.email(),
     name: faker.name.findName(),

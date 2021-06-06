@@ -2,7 +2,7 @@
   "name": "authTdd",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "https://github.com/joaobispo2077/auth-tdd.git",
+  "repository": "https://github.com/joaobispo2077/nodeauth.git",
   "author": "João Bispo <joaobispo2077@gmail.com>",
   "license": "MIT",
   "scripts": {
